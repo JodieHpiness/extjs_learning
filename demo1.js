@@ -46,15 +46,63 @@
 // 	win.show();
 // });
 
+/* 弹出表单 */
+
+
+// Ext.onReady(function(){
+// 	var form = new Ext.form.FormPanel({
+// 		frame: true,
+// 		title: '表单标题',
+// 		style: 'margin: 10px',
+// 		html: '<div style="padding: 10px">这里是表单内容</div>'
+// 	});
+
+// 	var win = new Ext.Window({
+// 		title: '窗口',
+// 		width: 470,
+// 		height: 374,
+// 		html: '<div>这里是窗体内容</div>',
+// 		resizable: true,
+// 		modal: true,
+// 		closable: true,
+// 		maximizable: true,
+// 		minimizable: true,
+// 		items: form
+// 	});
+
+// 	win.show();
+// })
+
 
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
+	var txtusername = new Ext.form.TextField({
+		width: 140,
+		allowBlank: false,
+		maxLength: 20,
+		name: 'username',
+		fieldLabel: '用户名称',
+		blankText: '请输入用户名',
+		maxLengthText: '用户名不能超过20个字符'
+	});
+	var txtpassword = new Ext.form.TextField({
+		width: 140,
+		allowBlank: false,
+		maxLength: 20,
+		inputType: 'password',
+		name: 'password',
+		fieldLabel: '密码',
+		blankText: '请输入密码',
+		maxLengthText: '密码不能超过20个字符'
+	});
 	var form = new Ext.form.FormPanel({
 		frame: true,
 		title: '表单标题',
-		style: 'margin: 10px',
-		html: '<div style="padding: 10px">这里是表单内容</div>'
+		style: 'margin:10px',
+		html:'<div>这里是表单内容</div>',
+		items: [txtusername, txtpassword]
 	});
-
 	var win = new Ext.Window({
 		title: '窗口',
 		width: 470,
@@ -67,7 +115,5 @@ Ext.onReady(function(){
 		minimizable: true,
 		items: form
 	});
-
 	win.show();
 })
-
