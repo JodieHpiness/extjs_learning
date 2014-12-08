@@ -3,8 +3,95 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Login form</title>
+	<link rel="stylesheet" href="extjs/resources/css/ext-all.css">
 </head>
 <body>
 	
+	<script src="extjs/ext-all-debug.js"></script>
+	<script>
+		Ext.onReady(function(){
+			Ext.QuickTips.init();
+			Ext.form.Field.prototype.msgTarget = 'side';
+
+			var btnsubmitclick = function(){
+				if(form.getForm().isValid()){
+					Ext.Msg.alert('提示', '登陆成功');
+				}
+			}
+			var btnresetclick = function(){
+				form.getForm().reset();
+			}
+			var btnsubmit = new Ext.Button({
+				text: '提交',
+				handler: btnsubmitclick
+			})
+			var btnreset = new Ext.Button({
+				text: ' 重置',
+				handler: btnresetclick
+			})
+			var txtusername = new Ext.form.TextField({
+				width: 140,
+				allowBlank: false,
+				maxLength: 20,
+				name: 'username',
+				fieldLabel: '用户名',
+				blankText: '请输入用户名',
+				maxLengthText: '用户名不能超过20个字符'
+			});
+			var txtpassword = new Ext.form.TextField({
+				width: 140,
+				allowBlank: false,
+				maxLength: 20,
+				inputType:'password',
+				name: 'password',
+				fieldLabel: '密码',
+				blankText: '请输入密码',
+				maxLengthText: '密码不能超过20个字符'
+			})
+			var txtcheckcode = new Ext.form.TextField({
+				width: 76,
+				fieldLabel: '验证码',
+				id: 'checkcode',
+				allowBlank: false,
+				blankText: '请输入验证码',
+				maxLength: 4,
+				maxLengthText: '验证码不能超过4个字符'
+			})
+			var form = new Ext.form.FormPanel({
+				url: 'login.html',
+				labelAlign: 'right',
+				labelWidth: 45,
+				frame: true,
+				cls: 'loginform',
+				buttonAlign: 'center',
+				bodyStyle: 'padding: 6px 0px 0px 15px',
+				items: [txtusername, txtpassword, txtcheckcode],
+				buttons: [btnsubmit, btnreset]
+			})
+			var win = new Ext.Window({
+				title: '用户登陆',
+				iconCls: 'loginicon',
+				plain: true,
+				width: 276,
+				height: 174,
+				resizable: false,
+				shadow: true,
+				modal: true,
+				closable: false,
+				animCollapse: true,
+				items: form
+			})
+			win.show();
+			var checkcode = Ext.getDom('checkcode');
+			var checkimage = Ext.get(checkcode.parentNode);
+			checkimage.createChild({
+				tag: 'img',
+				src: 'image/checkcode.gif',
+				align: 'absbottom',
+				style: 'padding-left: 24px, cursor:pointer;'
+			})
+		})
+
+	</script>
 </body>
 </html>
